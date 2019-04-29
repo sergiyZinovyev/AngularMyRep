@@ -7,5 +7,32 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular';
-  hi = 'Hello'
+  hi = 'Hello';
+  newTaskList = [
+    {
+      task: "first task",
+      priority: 1
+    },
+    {
+      task: "second task",
+      priority: 2
+    },
+    {
+      task: "next task #1",
+      priority: 3
+    },
+    {
+      task: "next task #2",
+      priority: 3
+    },
+    {
+      task: "next task #3",
+      priority: 3
+    },
+    {
+      task: "next task #4",
+      priority: 1
+    }
+
+  ]
 }
