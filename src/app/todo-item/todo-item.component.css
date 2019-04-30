@@ -1,0 +1,49 @@
+.todoitem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    /*width: 600px;*/
+    /*height: 50px;*/
+    color: rgb(247, 9, 9);
+    border: solid rgb(107, 101, 101) 5px;
+    border-radius: 20px;
+}
+#priority{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-right: 5px;
+    /*background: red;*/
+}
+.task{
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(77, 77, 77);
+    cursor: default;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.red{
+    background: red;
+}
+.blue{
+    background: blue;
+}
+.green{
+    background: green;
+}
+.grey{
+    background: rgb(80, 80, 80);
+}
+.done{
+    text-decoration: line-through;
+    color: rgb(146, 146, 146)
+}
+.check{
+    margin: 10px;
+}
+
