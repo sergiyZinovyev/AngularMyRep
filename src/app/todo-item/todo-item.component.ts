@@ -10,7 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TodoItemComponent implements OnInit {
   
   @Input() todo;
-  
+  //taskDone2 = 'doneNot'
   myclass: any;
   taskDone = 'doneNot'
   numToColor (num){
