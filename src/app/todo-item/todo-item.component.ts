@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { collectExternalReferences } from '@angular/compiler';
+//import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+//import { collectExternalReferences } from '@angular/compiler';
 
 @Component({
   selector: 'app-todo-item',
@@ -10,7 +10,7 @@ import { collectExternalReferences } from '@angular/compiler';
 export class TodoItemComponent implements OnInit {
   
   @Input() todo;
-  
+  //taskDone2 = 'doneNot'
   myclass: any;
   taskDone = 'doneNot'
   numToColor (num){

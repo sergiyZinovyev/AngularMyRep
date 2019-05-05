@@ -32,6 +32,10 @@ export class AppComponent {
     {
       task: "next task #4",
       priority: 1
+    },
+    {
+      task: "next task #5",
+      priority: 1
     }
   ]
 }
