@@ -33,6 +33,5 @@ export class AppComponent {
       task: "next task #4",
       priority: 1
     }
-
   ]
 }
