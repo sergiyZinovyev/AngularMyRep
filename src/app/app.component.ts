@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my Angular';
+  title: string = 'my Angular';
  
-  newTaskList = [
+  newTaskList: { task: string , priority: number }[] = [
     {
       task: "first task",
       priority: 1

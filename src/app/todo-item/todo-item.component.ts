@@ -9,12 +9,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TodoItemComponent implements OnInit {
   
-  @Input() todo;
-  //taskDone2 = 'doneNot'
-  myclass: any;
-  taskDone = 'doneNot'
-  numToColor (num){
-    var col;
+  @Input() todo: { task: string, priority: number };
+
+  myclass: string;
+
+  taskDone: string = 'doneNot';
+
+  numToColor (num: number): string{
+    let col: string;
     switch(num){
       case 1: col = "red"; break;
       case 2: col = "blue"; break;
@@ -24,7 +26,7 @@ export class TodoItemComponent implements OnInit {
     return col;
   }
 
-  taskDoneMeth(){
+  taskDoneMeth(): void {
     if (this.taskDone !='done'){
       this.taskDone = 'done';
       this.myclass = "grey"
