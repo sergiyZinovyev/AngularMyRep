@@ -11,6 +11,8 @@ export class TodoItemComponent implements OnInit {
   
   @Input() todo: { task: string, priority: number };
 
+ 
+
   myclass: string;
 
   taskDone: string = 'doneNot';
