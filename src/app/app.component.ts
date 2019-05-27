@@ -14,6 +14,7 @@ export class AppComponent {
   task:string = '';
   priority:number = undefined;
   done: Number = 0;
+  
 
   constructor(                        
     private data: PostService
@@ -28,7 +29,7 @@ export class AppComponent {
 
   addNewTask(): void {
     if (this.task == '' || this.priority == undefined){return}
-    let post = {id: this.newTaskList.length+1, task: this.task, priority: +this.priority, done: 0};
+    let post = {/*id: Math.max(...this.newTaskList.map(i => i.id))+1, */task: this.task, priority: +this.priority, done: 0};
     this.data.createPost(post).subscribe( (res: ToDoList) => {
       this.newTaskList.push(res);
       this.task = '';
@@ -58,17 +59,24 @@ export class AppComponent {
       
       this.newTaskList.forEach((obj: ToDoList) => {
         if(obj.id == id) {
+          //obj = Object.assign({}, obj);
           obj.task = res.task;
           obj.priority = res.priority;
           obj.done = res.done;
         }
       });
-     
+    
+      this.task = undefined;
+      this.priority = undefined;
+      this.done = 0;
+
     });
-    this.task = undefined;
-    this.priority = undefined;
-    this.done = 0;
-    console.log(id)
+    
+
+    /*this.data.getPost().subscribe( (posts: ToDoList[]) => {
+      this.newTaskList = posts;
+    })
+    console.log(this.newTaskList)*/
   }
 
 
