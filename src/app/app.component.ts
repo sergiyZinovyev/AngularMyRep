@@ -54,9 +54,9 @@ export class AppComponent {
         }
       }
     });
-    let post = {id: id, task: this.task, priority: +this.priority, done: this.done};
-    this.data.updatePost(post, id).subscribe( (res: ToDoList) => {
-      
+    let post = {/*id: id, */task: this.task, priority: +this.priority, done: this.done};
+
+    this.data.updatePost(post, id).subscribe( (res: ToDoList) => { 
       this.newTaskList.forEach((obj: ToDoList) => {
         if(obj.id == id) {
           //obj = Object.assign({}, obj);
@@ -65,13 +65,11 @@ export class AppComponent {
           obj.done = res.done;
         }
       });
-    
-      this.task = undefined;
-      this.priority = undefined;
-      this.done = 0;
 
     });
-    
+    this.task = undefined;
+    this.priority = undefined;
+    this.done = 0;
 
     /*this.data.getPost().subscribe( (posts: ToDoList[]) => {
       this.newTaskList = posts;

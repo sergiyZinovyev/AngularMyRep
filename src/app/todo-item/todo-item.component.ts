@@ -92,7 +92,7 @@ export class TodoItemComponent implements OnInit, DoCheck{
 
     this.changeDone.emit(id);
 
-    this.data.getPost().subscribe( (posts: ToDoList[]) => {
+      this.data.getPost().subscribe( (posts: ToDoList[]) => {
       this.todo = posts[this.todo.id-1];
       this.taskDone = this.getdone();
       this.myclass = this.getMyclass();
