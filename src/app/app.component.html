@@ -11,14 +11,14 @@
       </select>
     </div>
     <div class="col-auto">
-      <input type="submit" class="btn btn-primary myForm" value="Add" (click) = 'addProd()'>
+      <input type="submit" class="btn btn-primary myForm" value="Add" (click) = 'addNewTask()'>
     </div>
   </div>
 
   <h1 style="text-align:center">To-Do List</h1>
 
   <div *ngFor="let x of newTaskList">
-    <app-todo-item [todo]="x"></app-todo-item>
+    <app-todo-item [todo]="x" (deleteItem)="deleteTask($event)" (changeDone)="editDone($event)"></app-todo-item>
   </div>
 
 </div>

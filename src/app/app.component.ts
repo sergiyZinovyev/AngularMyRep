@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToDoList } from './type';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-root',
@@ -8,53 +9,67 @@ import { ToDoList } from './type';
 })
 export class AppComponent {
 
+  newTaskList: ToDoList[]
   levelsPriority: number[] = [1,2,3];
   task:string = '';
   priority:number = undefined;
- 
-  newTaskList: ToDoList[] = [
-    {
-      id: 1,
-      task: "first task",
-      priority: 1
-    },
-    {
-      id: 2,
-      task: "second task",
-      priority: 2
-    },
-    {
-      id: 3,
-      task: "next task #1",
-      priority: 3
-    },
-    {
-      id: 4,
-      task: "next task #2",
-      priority: 3
-    },
-    {
-      id: 5,
-      task: "next task #3",
-      priority: 3
-    },
-    {
-      id: 6,
-      task: "next task #4",
-      priority: 1
-    },
-    {
-      id: 7,
-      task: "next task #5",
-      priority: 1
-    }
-  ]
+  done: Number = 0;
 
+  constructor(                        
+    private data: PostService
+  ) {}
 
-  addProd(): void {
-    if (this.task == '' || this.priority == undefined){return}
-    this.newTaskList.push({id: this.newTaskList.length+1, task: this.task, priority: Number(this.priority)})
-    this.task = '';
-    this.priority = undefined;
+ ngOnInit() { 
+    this.data.getPost().subscribe( (posts: ToDoList[]) => {
+      this.newTaskList = posts;
+    })    
   }
+ 
+
+  addNewTask(): void {
+    if (this.task == '' || this.priority == undefined){return}
+    let post = {id: this.newTaskList.length+1, task: this.task, priority: +this.priority, done: 0};
+    this.data.createPost(post).subscribe( (res: ToDoList) => {
+      this.newTaskList.push(res);
+      this.task = '';
+      this.priority = undefined;
+    })
+  }
+
+  deleteTask(id){
+    this.data.deletePost(id).subscribe( _ => {
+      this.newTaskList = this.newTaskList.filter((t) => t.id !== id);
+    })
+  }
+
+  editDone(id){
+    
+    this.newTaskList.forEach((obj: ToDoList) => {
+      if(obj.id == id) {
+        this.task = obj.task;
+        this.priority = obj.priority;
+        if(obj.done == 0){
+          this.done = 1;
+        }
+      }
+    });
+    let post = {id: id, task: this.task, priority: +this.priority, done: this.done};
+    this.data.updatePost(post, id).subscribe( (res: ToDoList) => {
+      
+      this.newTaskList.forEach((obj: ToDoList) => {
+        if(obj.id == id) {
+          obj.task = res.task;
+          obj.priority = res.priority;
+          obj.done = res.done;
+        }
+      });
+     
+    });
+    this.task = undefined;
+    this.priority = undefined;
+    this.done = 0;
+    console.log(id)
+  }
+
+
 }

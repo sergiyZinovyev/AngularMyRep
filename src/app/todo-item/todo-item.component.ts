@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-//import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-//import { collectExternalReferences } from '@angular/compiler';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { PostService } from './../post.service';
+import { ToDoList } from './../type';
 
 @Component({
   selector: 'app-todo-item',
@@ -9,13 +9,45 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TodoItemComponent implements OnInit {
   
-  @Input() todo: { task: string, priority: number };
+  @Input() todo: ToDoList;
+  @Output() deleteItem = new EventEmitter<number>();
+  @Output() changeDone = new EventEmitter<number>();
 
- 
 
+  //newTaskList: ToDoList[];
   myclass: string;
+  taskDone: string;
 
-  taskDone: string = 'doneNot';
+  constructor(private data: PostService) { }
+
+  ngOnInit() {
+
+    this.data.getPost().subscribe( (posts: ToDoList[]) => {
+      /*this.newTaskList = posts;
+      this.todo = this.newTaskList[this.todo.id - 1];*/
+      this.todo = posts[this.todo.id - 1];
+    }) 
+    
+    this.taskDone = this.getdone();
+    this.myclass = this.getMyclass();
+    
+    console.log(this.todo);
+    console.log(this.todo.done);
+    console.log(this.taskDone);
+    console.log(this.myclass);
+  }
+
+  
+
+  getdone(){
+    if(this.todo.done == 0){return 'doneNot'}
+    else{return 'done'}
+  }
+
+  getMyclass(){
+    if(this.taskDone == 'done'){return "grey";}
+    else{return this.numToColor(this.todo.priority);}
+  }
 
   numToColor (num: number): string{
     let col: string;
@@ -28,26 +60,21 @@ export class TodoItemComponent implements OnInit {
     return col;
   }
 
-  taskDoneMeth(): void {
+  taskDoneMeth(id): void {
     if (this.taskDone !='done'){
-      this.taskDone = 'done';
-      this.myclass = "grey"
+      //this.taskDone = 'done';
+      //this.myclass = "grey"
     }
     else{
-      this.taskDone = 'doneNot';
-      this.myclass = this.numToColor(this.todo.priority);
+      //this.taskDone = 'doneNot';
+      //this.myclass = this.numToColor(this.todo.priority);
     }
+    this.changeDone.emit(id);
   }
 
-  constructor() { }
-
-  ngOnInit() {
-
-    this.myclass = this.numToColor(this.todo.priority);
-  
-    console.log(this.todo);
-    
-  
+  delTask(id) {
+    this.deleteItem.emit(id);
   }
- 
+
+
 }
