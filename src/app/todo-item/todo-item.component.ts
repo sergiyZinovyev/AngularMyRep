@@ -11,7 +11,7 @@ export class TodoItemComponent implements OnInit, DoCheck{
   
   @Input() todo: ToDoList;
   @Output() deleteItem = new EventEmitter<number>();
-  @Output() changeDone = new EventEmitter<number>();
+  @Output() changeDone = new EventEmitter<[]>();
 
   myclass: string;
   taskDone: string;
@@ -19,22 +19,9 @@ export class TodoItemComponent implements OnInit, DoCheck{
   constructor(private data: PostService) { }
 
   ngDoCheck(){
-    /*this.data.getPost().subscribe( (posts: ToDoList[]) => {
-      this.todo = posts[this.todo.id-1];
-      console.log(posts[this.todo.id-1]);
-    })
-    
-    this.taskDone = this.getdone();
-    this.myclass = this.getMyclass();*/
   }
 
   ngOnInit() {
-
-    /*this.data.getPost().subscribe( (posts: ToDoList[]) => {
-      this.todo = posts[this.todo.id-1];
-      console.log(posts[this.todo.id-1]);
-    })*/
-    
     this.taskDone = this.getdone();
     this.myclass = this.getMyclass();
   }
@@ -62,52 +49,40 @@ export class TodoItemComponent implements OnInit, DoCheck{
     return col;
   }
 
-  taskDoneMeth(id): void {
-    /*if (this.todo.done == 0){
-      this.todo.done = 1;
-      //this.myclass = "grey"
+  taskDoneMeth(id:number): void {
+    let idanddone:any = [];
+    idanddone[0] = id;
+
+    console.log('this.todo.done='+this.todo.done);
+
+    if (this.todo.done == 0){
+      idanddone[1] = 1;
     }
     if (this.todo.done == 1){
+      idanddone[1] = 0;
+    }
+  
+    this.changeDone.emit(idanddone);
+
+    if (this.todo.done == 0){
+      this.todo.done = 1;
+      console.log('0 this.todo=');
+      console.log(this.todo);
+    }
+    else{
       this.todo.done = 0;
-      //this.myclass = this.numToColor(this.todo.priority);
+      console.log('1 this.todo=');
+      console.log(this.todo);
     }
 
-    let post = {id: this.todo.id, task: this.todo.task, priority: +this.todo.priority, done: this.todo.done};
-    //let post = {id: id, task: 'test', priority: 3, done: 1};
-    this.data.updatePost(post, id).subscribe( (posts: ToDoList[]) => {
-      this.todo = posts[id-1];
-    });
-
-    /*this.data.getPost().subscribe( (posts: ToDoList[]) => {
-      this.todo = posts[this.todo.id-1];
-    })*/
-    
-    /*this.taskDone = this.getdone();
+    this.taskDone = this.getdone();
     this.myclass = this.getMyclass();
-    
+
+    console.log('this.todo=');
     console.log(this.todo);
     console.log(this.todo.done);
     console.log(this.taskDone);
-    console.log(this.myclass);*/
-
-    this.changeDone.emit(id);
-
-      this.data.getPost().subscribe( (posts: ToDoList[]) => {
-      this.todo = posts[this.todo.id-1];
-      this.taskDone = this.getdone();
-      this.myclass = this.getMyclass();
-      console.log('posts[this.todo.id-1]=');
-      console.log(posts[this.todo.id-1]);
-      console.log('this.todo=');
-      console.log(this.todo);
-      console.log(this.todo.done);
-      console.log(this.taskDone);
-      console.log(this.myclass);
-    })
-    
-    
-
-
+    console.log(this.myclass);
   }
 
   delTask(id) {

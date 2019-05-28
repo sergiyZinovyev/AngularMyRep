@@ -45,9 +45,4 @@ export class PostService {
     return throwError(err);
   }
   
-
-  /*addItem(task: string, priority: number): void {
-    this.taskList.push({id: this.taskList.length+1, task: task, priority: Number(priority)})
-  }*/
-
 }

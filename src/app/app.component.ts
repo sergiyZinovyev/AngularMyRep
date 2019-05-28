@@ -13,7 +13,6 @@ export class AppComponent {
   levelsPriority: number[] = [1,2,3];
   task:string = '';
   priority:number = undefined;
-  done: Number = 0;
   
 
   constructor(                        
@@ -44,22 +43,20 @@ export class AppComponent {
   }
 
   editDone(id){
-    
+    console.log(id)
     this.newTaskList.forEach((obj: ToDoList) => {
-      if(obj.id == id) {
+      if(obj.id == id[0]) {
         this.task = obj.task;
         this.priority = obj.priority;
-        if(obj.done == 0){
-          this.done = 1;
-        }
       }
     });
-    let post = {/*id: id, */task: this.task, priority: +this.priority, done: this.done};
 
-    this.data.updatePost(post, id).subscribe( (res: ToDoList) => { 
+    let post = {id: id[0], task: this.task, priority: +this.priority, done: id[1]};
+
+    this.data.updatePost(post, id[0]).subscribe( (res: ToDoList) => { 
+      
       this.newTaskList.forEach((obj: ToDoList) => {
-        if(obj.id == id) {
-          //obj = Object.assign({}, obj);
+        if(obj.id == id[0]) {
           obj.task = res.task;
           obj.priority = res.priority;
           obj.done = res.done;
@@ -69,12 +66,6 @@ export class AppComponent {
     });
     this.task = undefined;
     this.priority = undefined;
-    this.done = 0;
-
-    /*this.data.getPost().subscribe( (posts: ToDoList[]) => {
-      this.newTaskList = posts;
-    })
-    console.log(this.newTaskList)*/
   }
 
 
