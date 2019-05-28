@@ -8,3 +8,20 @@
     border-radius: 20px;
     height: 50px;
 }
+
+.content{
+    margin-top: 150px;
+}
+
+.background{
+    background: white;
+}
+
+.myOption{
+    background-color: dodgerblue;
+    font-family: cursive;
+    color: white;
+    text-align: center;
+    border: solid rgb(107, 101, 101) 5px;
+    border-radius: 20px;
+}

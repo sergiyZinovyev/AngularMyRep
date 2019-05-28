@@ -1,24 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container-fluid wids">
 
-  <div class="form-group form-row justify-content-between mt-4">
-    <div class="col">
-      <input type="text" class="form-control myForm" [(ngModel)]="task" placeholder="Add task">
+  <div class="fixed-top container-fluid wids background">
+    <div class="form-group form-row justify-content-between mt-4">
+      <div class="col">
+        <input type="text" class="form-control myForm" [(ngModel)]="task" placeholder="Add task">
+      </div>
+      <div class="col-auto">
+        <select class="form-control myForm" [(ngModel)]="priority" placeholder="Add priority">
+          <option *ngFor = "let p of levelsPriority" [value] = "p" class="myOption"> {{p}} </option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <input type="submit" class="btn btn-primary myForm" value="Add" (click) = 'addNewTask()'>
+      </div>
     </div>
-    <div class="col-auto">
-      <select class="form-control myForm" [(ngModel)]="priority" placeholder="Add priority">
-        <option *ngFor = "let p of levelsPriority"[value] = "p"> {{p}} </option>
-      </select>
-    </div>
-    <div class="col-auto">
-      <input type="submit" class="btn btn-primary myForm" value="Add" (click) = 'addNewTask()'>
-    </div>
+    <h1 style="text-align:center">To-Do List</h1>
   </div>
 
-  <h1 style="text-align:center">To-Do List</h1>
-
-  <div *ngFor="let x of newTaskList">
-    <app-todo-item [todo]="x" (deleteItem)="deleteTask($event)" (changeDone)="editDone($event)"></app-todo-item>
+  <div class="content">
+    <div *ngFor="let x of newTaskList">
+      <app-todo-item [todo]="x" (deleteItem)="deleteTask($event)" (changeDone)="editDone($event)"></app-todo-item>
+    </div>
   </div>
 
 </div>
